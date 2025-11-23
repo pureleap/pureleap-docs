@@ -14,7 +14,7 @@ export default siteConfig({
   author: 'Pureleap Pty. Ltd.',
 
   // open graph metadata (optional)
-  description: 'Example Next.js Notion Starter Kit Site',
+  description: 'Documentation for Pureleap products.',
 
   // social usernames (optional)
   // twitter: 'mxro',
@@ -34,7 +34,7 @@ export default siteConfig({
   isPreviewImageSupportEnabled: false,
 
   
-  isSearchEnabled: false,
+  isSearchEnabled: true,
 
   // whether or not redis is enabled for caching generated preview images (optional)
   // NOTE: if you enable redis, you need to set the `REDIS_HOST` and `REDIS_PASSWORD`

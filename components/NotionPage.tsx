@@ -231,7 +231,7 @@ export function NotionPage({
   const isBlogPost =
     block?.type === 'page' && block?.parent_table === 'collection'
 
-  const showTableOfContents = !!isBlogPost
+  const showTableOfContents = true;// !!isBlogPost
   const minTableOfContentsItems = 3
 
   const pageAside = React.useMemo(
@@ -328,7 +328,7 @@ export function NotionPage({
         footer={footer}
       />
 
-      <GitHubShareButton />
+      {/* <GitHubShareButton /> */}
     </>
   )
 }
