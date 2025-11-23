@@ -28,6 +28,7 @@
 
 .notion-text {
   padding: 0.5em 2px;
+  font-size: 1.125rem;
 }
 
 .notion-asset-caption {
@@ -134,6 +135,21 @@
   margin-bottom: 0.25em;
 }
 
+.notion-h1 {
+  font-family: 'Amatic SC', sans-serif;
+  font-size: 3rem;
+}
+
+.notion-h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2rem;
+}
+
+.notion-h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.5rem;
+}
+
 .notion-callout {
   margin: 0.75em 0;
 }
@@ -170,6 +186,8 @@
 .notion-title {
   display: block;
   text-align: center;
+  font-family: 'Amatic SC', sans-serif;
+  font-size: 4rem;
 }
 
 .notion-collection-row {
@@ -232,6 +250,21 @@
   background-repeat: no-repeat;
   background-position: 50% 100%;
   background-size: 0 0.1rem;
+}
+
+.notion-link-mention-provider,
+.notion-link-mention-title {
+  font-size: 0.9rem;
+}
+
+.notion-link-mention-title {
+  font-weight:500;
+}
+
+.notion-link-mention-link {
+  background-color:#e3dff2;
+  border-radius: 5px;
+  padding: 2px;
 }
 
 .notion-link:focus,

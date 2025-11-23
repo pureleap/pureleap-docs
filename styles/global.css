@@ -14,10 +14,10 @@ html {
 }
 
 body {
-  --notion-font: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-    'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
-    'Droid Sans', 'Helvetica Neue', 'Noto Sans', sans-serif;
+  --notion-font: 'Montserrat', sans-serif;
   font-family: var(--notion-font);
+  font-size: 1.125rem;
+  line-height: 1.75rem;
   overflow-x: hidden;
 }
 
