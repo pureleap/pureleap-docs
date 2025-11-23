@@ -44,13 +44,14 @@ export function NotionPageHeader({
   const { components, mapPageUrl } = useNotionContext()
 
   if (navigationStyle === 'default') {
-    return <><PureleapHeader /><Header block={block} /></>
+    return <><PureleapHeader /><div style={{marginTop: '4rem'}}><Header block={block} /></div></>
   }
 
   return (
     <>
       <PureleapHeader />
-      <header className='notion-header'>
+      <div style={{marginTop: '4rem'}}>
+        <header className='notion-header'>
       <div className='notion-nav-header'>
         <Breadcrumbs block={block} rootOnly={true} />
 
@@ -91,6 +92,7 @@ export function NotionPageHeader({
         </div>
       </div>
     </header>
+    </div>
     </>
   )
 }
