@@ -17,6 +17,7 @@
 }
 
 .notion-page {
+  padding-top: 240px !important;
   padding-bottom: calc(max(5vh, 32px)) !important;
   line-height: 1.65;
 }
@@ -356,6 +357,9 @@
 .notion-page-icon-hero.notion-page-icon-image img {
   border-radius: 50%;
 } */
+.notion-page-icon-hero.notion-page-icon-image {
+  margin-top: 104px;
+}
 
 .notion-header {
   background: hsla(0, 0%, 100%, 0.8);
