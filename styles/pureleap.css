@@ -1,0 +1,137 @@
+/* Pureleap Header Styles */
+
+.pureleap-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #fbfbff;
+  z-index: 50;
+  transition: all 0.5s ease-in-out;
+}
+
+.pureleap-header.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.pureleap-header.hidden {
+  opacity: 0;
+  transform: translateY(-8px);
+  pointer-events: none;
+}
+
+.pureleap-container {
+  max-width: 80rem; /* 7xl */
+  margin: 0 auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .pureleap-container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .pureleap-container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+.pureleap-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 4rem;
+}
+
+.pureleap-logo-link {
+  flex-shrink: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.pureleap-logo {
+  height: 100%;
+}
+
+.pureleap-nav {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .pureleap-nav {
+    display: block;
+  }
+}
+
+.pureleap-nav-link {
+  color: #374151; /* dark gray */
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-family: cursive; /* handwritten style */
+}
+
+.pureleap-nav-link:hover {
+  color: #f97316; /* orange */
+}
+
+.pureleap-mobile-menu-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  color: #374151;
+}
+
+.pureleap-mobile-menu-btn:hover {
+  color: #f97316;
+}
+
+@media (min-width: 640px) {
+  .pureleap-mobile-menu-btn {
+    display: none;
+  }
+}
+
+.pureleap-mobile-menu {
+  display: none;
+}
+
+.pureleap-mobile-menu.open {
+  display: block;
+}
+
+@media (min-width: 640px) {
+  .pureleap-mobile-menu {
+    display: none !important;
+  }
+}
+
+.pureleap-mobile-menu-list {
+  padding-left: 0.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.75rem;
+  text-align: right;
+}
+
+.pureleap-mobile-menu-item {
+  display: block;
+  padding: 0.75rem;
+  border-radius: 0.375rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+  color: #374151;
+  font-family: sans-serif;
+}
+
+.pureleap-mobile-menu-item:hover {
+  color: #f97316;
+}

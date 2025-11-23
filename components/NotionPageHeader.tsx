@@ -5,6 +5,8 @@ import cs from 'classnames'
 import * as React from 'react'
 import { Breadcrumbs, Header, Search, useNotionContext } from 'react-notion-x'
 
+import { PureleapHeader } from './PureleapHeader'
+
 import { isSearchEnabled, navigationLinks, navigationStyle } from '@/lib/config'
 import { useDarkMode } from '@/lib/use-dark-mode'
 
@@ -32,6 +34,8 @@ function ToggleThemeButton() {
   )
 }
 
+
+
 export function NotionPageHeader({
   block
 }: {
@@ -40,11 +44,13 @@ export function NotionPageHeader({
   const { components, mapPageUrl } = useNotionContext()
 
   if (navigationStyle === 'default') {
-    return <Header block={block} />
+    return <><PureleapHeader /><Header block={block} /></>
   }
 
   return (
-    <header className='notion-header'>
+    <>
+      <PureleapHeader />
+      <header className='notion-header'>
       <div className='notion-nav-header'>
         <Breadcrumbs block={block} rootOnly={true} />
 
@@ -85,5 +91,6 @@ export function NotionPageHeader({
         </div>
       </div>
     </header>
+    </>
   )
 }
