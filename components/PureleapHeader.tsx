@@ -19,46 +19,47 @@ export const PureleapHeader: React.FC<HeaderProps> = ({ className = '', visible 
   return (
     <header className={`pureleap-header ${visible ? 'visible' : 'hidden'} ${className}`}>
       <div className="pureleap-container">
-        <div className="pureleap-flex">
-          {/* Logo */}
-          <a href="/" className="pureleap-logo-link">
-            <img src={PureleapLogo.src} alt="Pureleap Logo" className="pureleap-logo" />
-          </a>
+      <div className="pureleap-flex">
+        {/* Logo */}
+        <a href="https://pureleap.com" className="pureleap-logo-link">
+          <img src={PureleapLogo.src} alt="Pureleap Logo" className="pureleap-logo" />
+        </a>
 
+        {/* Right side: Navigation and Mobile menu button */}
+        <div className="pureleap-right">
           {/* Desktop Navigation */}
           <nav className="pureleap-nav">
-            <a href="/" className="pureleap-nav-link">
+            <a href="https://pureleap.com" className="pureleap-nav-link">
               Home
             </a>
           </nav>
 
           {/* Mobile menu button */}
-          <div>
-            <button
-              type="button"
-              className="pureleap-mobile-menu-btn"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
+          <button
+            type="button"
+            className="pureleap-mobile-menu-btn"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            <span className="sr-only">Open main menu</span>
+            {/* Hamburger icon */}
+            <svg
+              className="h-6 w-6"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
             >
-              <span className="sr-only">Open main menu</span>
-              {/* Hamburger icon */}
-              <svg
-                className="h-6 w-6"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <title>Hamburger Icon</title>
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d={isMenuOpen ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16M4 18h16'}
-                />
-              </svg>
-            </button>
-          </div>
+              <title>Hamburger Icon</title>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d={isMenuOpen ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16M4 18h16'}
+              />
+            </svg>
+          </button>
         </div>
+      </div>
 
         {/* Mobile menu */}
         {isMenuOpen && (
