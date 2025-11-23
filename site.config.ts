@@ -17,9 +17,9 @@ export default siteConfig({
   description: 'Example Next.js Notion Starter Kit Site',
 
   // social usernames (optional)
-  // twitter: 'transitive_bs',
-  github: 'pureleap',
-  // linkedin: 'fisch2',
+  // twitter: 'mxro',
+  // github: 'pureleap',
+  // linkedin: 'maxrohde',
   // mastodon: '#', // optional mastodon profile URL, provides link verification
   // newsletter: '#', // optional newsletter URL
   // youtube: '#', // optional youtube channel name or `channel/UCGbXXXXXXXXXXXXXXXXXXXXXX`
@@ -33,6 +33,7 @@ export default siteConfig({
   // whether or not to enable support for LQIP preview images (optional)
   isPreviewImageSupportEnabled: false,
 
+  
   isSearchEnabled: false,
 
   // whether or not redis is enabled for caching generated preview images (optional)
