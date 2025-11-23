@@ -141,9 +141,9 @@
 
 /* Override built-in TOC active styling to prevent conflicts */
 .notion-table-of-contents-active-item {
-  background: none !important;
+  background: inherit;
   color: inherit !important;
-  font-weight: normal !important;
+  font-weight: normal;
 }
 
 /* Custom TOC active styling */
