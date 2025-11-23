@@ -246,84 +246,129 @@ export function NotionPage({
 
   const footer = React.useMemo(() => <Footer />, [])
 
-  // Custom TOC highlighting to account for scroll-margin-top
+  // Robust TOC highlighting using IntersectionObserver
   React.useEffect(() => {
-    let rafId: number | null = null
-    let lastScrollY = window.scrollY
+    let observer: IntersectionObserver | null = null
+    let mutationObserver: MutationObserver | null = null
 
-    const updateTocHighlighting = () => {
-      const sections = document.getElementsByClassName('notion-h')
+    const updateActiveTocItem = (sectionId: string | null) => {
       const tocLinks = document.querySelectorAll('.notion-table-of-contents-item')
 
-      // Only proceed if we have both sections and TOC links
-      if (sections.length === 0 || tocLinks.length === 0) {
-        return
-      }
-
-      let prevBBox: DOMRect | null = null
-      let currentSectionId: string | null = null
-
-      const scrollMargin = 128 // 8rem assuming 16px base font size
-
-      for (const section of sections) {
-        if (!section || !(section instanceof Element)) continue
-
-        if (!currentSectionId) {
-          currentSectionId = (section as any).dataset.id
-        }
-
-        const bbox = section.getBoundingClientRect()
-        const prevHeight = prevBBox ? bbox.top - prevBBox.bottom : 0
-        const offset = Math.max(150, prevHeight / 4)
-
-        // Adjust for scroll-margin-top
-        if ((bbox.top - scrollMargin) - offset < 0) {
-          currentSectionId = (section as any).dataset.id
-          prevBBox = bbox
-          continue
-        }
-
-        // No need to continue loop, if last element has been detected
-        break
-      }
-
-      // Update TOC active item
-      tocLinks.forEach(link => {
+      // Remove active class from all links
+      for (const link of tocLinks) {
         link.classList.remove('custom-toc-active')
-      })
-      if (currentSectionId) {
-        const activeLink = document.querySelector(`.notion-table-of-contents-item[href="#${currentSectionId}"]`)
+      }
+
+      // Add active class to current section link
+      if (sectionId) {
+        const activeLink = document.querySelector(`.notion-table-of-contents-item[href="#${sectionId}"]`)
         if (activeLink) {
           activeLink.classList.add('custom-toc-active')
         }
       }
     }
 
-    const handleScroll = () => {
-      // Only update if scroll position actually changed significantly
-      if (Math.abs(window.scrollY - lastScrollY) > 5) {
-        lastScrollY = window.scrollY
-        if (rafId) cancelAnimationFrame(rafId)
-        rafId = requestAnimationFrame(updateTocHighlighting)
+    const initializeTocObserver = () => {
+      // Clean up existing observer
+      if (observer) {
+        observer.disconnect()
+      }
+
+      const sections = document.querySelectorAll('.notion-h')
+      if (sections.length === 0) return
+
+      // Calculate scroll margin dynamically (8rem)
+      const scrollMargin = Number.parseFloat(getComputedStyle(document.documentElement).fontSize) * 8
+
+      observer = new IntersectionObserver(
+        (entries) => {
+          let currentSectionId: string | null = null
+
+          // Find the section that is currently most visible at the top
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              const sectionId = (entry.target as HTMLElement).dataset.id
+              if (sectionId) {
+                currentSectionId = sectionId
+                break // Take the first intersecting section (topmost)
+              }
+            }
+          }
+
+          updateActiveTocItem(currentSectionId)
+        },
+        {
+          root: null,
+          rootMargin: `-${scrollMargin}px 0px -50% 0px`,
+          threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+        }
+      )
+
+      // Observe all heading sections
+      for (const section of sections) {
+        observer!.observe(section)
       }
     }
 
-    // Use passive listener for better performance
-    window.addEventListener('scroll', handleScroll, { passive: true })
-
-    // Initial call and retry mechanism
-    const initTocHighlighting = () => {
-      updateTocHighlighting()
-      // Retry after a short delay in case TOC wasn't ready
-      setTimeout(updateTocHighlighting, 100)
-      setTimeout(updateTocHighlighting, 500)
+    const handleContentChanges = () => {
+      // Debounce content change handling
+      clearTimeout((window as any).tocDebounceTimer)
+      ;(window as any).tocDebounceTimer = setTimeout(() => {
+        initializeTocObserver()
+      }, 100)
     }
 
-    initTocHighlighting()
+    const handleResize = () => handleContentChanges()
+
+    // Initialize observer after a short delay to ensure DOM is ready
+    const initTimer = setTimeout(() => {
+      initializeTocObserver()
+
+      // Watch for content changes that might affect TOC
+      mutationObserver = new MutationObserver((mutations) => {
+        const hasRelevantChanges = mutations.some(mutation =>
+          mutation.type === 'childList' &&
+          mutation.target instanceof Element &&
+          ((mutation.target as Element).classList?.contains('notion-h') ||
+           (mutation.target as Element).classList?.contains('notion-table-of-contents'))
+        )
+
+        if (hasRelevantChanges) {
+          handleContentChanges()
+        }
+      })
+
+      mutationObserver.observe(document.body, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ['class']
+      })
+
+      // Handle window resize
+      window.addEventListener('resize', handleResize)
+
+      // Store cleanup function
+      ;(window as any).tocCleanup = () => {
+        window.removeEventListener('resize', handleResize)
+      }
+    }, 200)
 
     return () => {
-      window.removeEventListener('scroll', handleScroll)
-      if (rafId) cancelAnimationFrame(rafId)
+      clearTimeout(initTimer)
+      clearTimeout((window as any).tocDebounceTimer)
+
+      if (observer) {
+        observer.disconnect()
+      }
+
+      if (mutationObserver) {
+        mutationObserver.disconnect()
+      }
+
+      if ((window as any).tocCleanup) {
+        ;(window as any).tocCleanup()
+      }
     }
   }, [])
 

@@ -148,8 +148,8 @@
 
 /* Custom TOC active styling */
 .custom-toc-active {
-  background: rgba(55, 53, 47, 0.08);
-  border-radius: 3px;
+  /* background: rgba(55, 53, 47, 0.08);
+  border-radius: 3px; */
 }
 
 .notion-h1 {
