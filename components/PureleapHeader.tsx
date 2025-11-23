@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-
 import PureleapLogo from './img/pureleap_logo_nobg.png';
 
 interface HeaderProps {
@@ -13,7 +12,7 @@ interface HeaderProps {
  * @param props - Component properties including visibility control
  * @returns Header component with responsive navigation
  */
-export const PureleapHeader: React.FC<HeaderProps> = ({ className = '', visible = true }) => {
+export function PureleapHeader({ className = '', visible = true }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (

@@ -5,11 +5,10 @@ import cs from 'classnames'
 import * as React from 'react'
 import { Breadcrumbs, Header, Search, useNotionContext } from 'react-notion-x'
 
-import { PureleapHeader } from './PureleapHeader'
-
 import { isSearchEnabled, navigationLinks, navigationStyle } from '@/lib/config'
 import { useDarkMode } from '@/lib/use-dark-mode'
 
+import { PureleapHeader } from './PureleapHeader'
 import styles from './styles.module.css'
 
 function ToggleThemeButton() {
