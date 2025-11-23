@@ -135,6 +135,23 @@
   margin-bottom: 0.25em;
 }
 
+.notion-header-anchor {
+  scroll-margin-top: 8rem;
+}
+
+/* Override built-in TOC active styling to prevent conflicts */
+.notion-table-of-contents-active-item {
+  background: none !important;
+  color: inherit !important;
+  font-weight: normal !important;
+}
+
+/* Custom TOC active styling */
+.custom-toc-active {
+  background: rgba(55, 53, 47, 0.08);
+  border-radius: 3px;
+}
+
 .notion-h1 {
   font-family: 'Amatic SC', sans-serif;
   font-size: 3rem;

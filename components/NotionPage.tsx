@@ -246,6 +246,87 @@ export function NotionPage({
 
   const footer = React.useMemo(() => <Footer />, [])
 
+  // Custom TOC highlighting to account for scroll-margin-top
+  React.useEffect(() => {
+    let rafId: number | null = null
+    let lastScrollY = window.scrollY
+
+    const updateTocHighlighting = () => {
+      const sections = document.getElementsByClassName('notion-h')
+      const tocLinks = document.querySelectorAll('.notion-table-of-contents-item')
+
+      // Only proceed if we have both sections and TOC links
+      if (sections.length === 0 || tocLinks.length === 0) {
+        return
+      }
+
+      let prevBBox: DOMRect | null = null
+      let currentSectionId: string | null = null
+
+      const scrollMargin = 128 // 8rem assuming 16px base font size
+
+      for (const section of sections) {
+        if (!section || !(section instanceof Element)) continue
+
+        if (!currentSectionId) {
+          currentSectionId = (section as any).dataset.id
+        }
+
+        const bbox = section.getBoundingClientRect()
+        const prevHeight = prevBBox ? bbox.top - prevBBox.bottom : 0
+        const offset = Math.max(150, prevHeight / 4)
+
+        // Adjust for scroll-margin-top
+        if ((bbox.top - scrollMargin) - offset < 0) {
+          currentSectionId = (section as any).dataset.id
+          prevBBox = bbox
+          continue
+        }
+
+        // No need to continue loop, if last element has been detected
+        break
+      }
+
+      // Update TOC active item
+      tocLinks.forEach(link => {
+        link.classList.remove('custom-toc-active')
+      })
+      if (currentSectionId) {
+        const activeLink = document.querySelector(`.notion-table-of-contents-item[href="#${currentSectionId}"]`)
+        if (activeLink) {
+          activeLink.classList.add('custom-toc-active')
+        }
+      }
+    }
+
+    const handleScroll = () => {
+      // Only update if scroll position actually changed significantly
+      if (Math.abs(window.scrollY - lastScrollY) > 5) {
+        lastScrollY = window.scrollY
+        if (rafId) cancelAnimationFrame(rafId)
+        rafId = requestAnimationFrame(updateTocHighlighting)
+      }
+    }
+
+    // Use passive listener for better performance
+    window.addEventListener('scroll', handleScroll, { passive: true })
+
+    // Initial call and retry mechanism
+    const initTocHighlighting = () => {
+      updateTocHighlighting()
+      // Retry after a short delay in case TOC wasn't ready
+      setTimeout(updateTocHighlighting, 100)
+      setTimeout(updateTocHighlighting, 500)
+    }
+
+    initTocHighlighting()
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      if (rafId) cancelAnimationFrame(rafId)
+    }
+  }, [])
+
   if (router.isFallback) {
     return <Loading />
   }
