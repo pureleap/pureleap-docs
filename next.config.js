@@ -27,6 +27,21 @@ export default withBundleAnalyzer({
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;"
   },
 
+  async rewrites() {
+    return [
+      {
+        source: "/relay-8RHo/static/:path*",
+        destination: "https://us-assets.i.posthog.com/static/:path*",
+      },
+      {
+        source: "/relay-8RHo/:path*",
+        destination: "https://us.i.posthog.com/:path*",
+      },
+    ]
+  },
+  // This is required to support PostHog trailing slash API requests
+  skipTrailingSlashRedirect: true,
+
   webpack: (config) => {
     // Workaround for ensuring that `react` and `react-dom` resolve correctly
     // when using a locally-linked version of `react-notion-x`.

@@ -167,7 +167,8 @@ export const fathomConfig = fathomId
 
 export const posthogId = process.env.NEXT_PUBLIC_POSTHOG_ID
 export const posthogConfig: Partial<PostHogConfig> = {
-  api_host: 'https://app.posthog.com'
+  api_host: "/relay-8RHo",
+  ui_host: 'https://us.posthog.com'
 }
 
 function cleanPageUrlMap(
