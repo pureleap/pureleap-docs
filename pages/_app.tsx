@@ -15,6 +15,7 @@ import 'styles/prism-theme.css'
 // pureleap header styles
 import 'styles/pureleap.css'
 
+import { Analytics } from '@vercel/analytics/next'
 import type { AppProps } from 'next/app'
 import * as Fathom from 'fathom-client'
 import { useRouter } from 'next/router'
@@ -63,5 +64,5 @@ export default function App({ Component, pageProps }: AppProps) {
     }
   }, [router.events])
 
-  return <Component {...pageProps} />
+  return <> <Component {...pageProps} /> <Analytics /> </>
 }
