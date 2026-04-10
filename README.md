@@ -1,6 +1,8 @@
 
 # Pureleap Documentation 
 
+This is permanently forwarded to Notion site.
+
 Documentation for [pureleap.com](https://pureleap.com) products, including:
 
 - [Commonplace Book Notion Template](https://pureleap.com/gifts/commonplace-book) -> [docs](https://docs.pureleap.com/commonplace-book)
