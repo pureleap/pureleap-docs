@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "destination": "https://pureleaphq.notion.site/Documentation-Hub-2b452fcebfae8092a1c7df3efa5297dd",
+      "permanent": true
+    }
+  ]
+}
